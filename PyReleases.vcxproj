@@ -146,6 +146,7 @@
     <ClInclude Include="protos.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="errors.c" />
     <ClCompile Include="lib.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>

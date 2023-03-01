@@ -320,6 +320,7 @@ ParsedPyStructs DeserializeStableReleases(LPSTR pszBody, DWORD dwSize) {
 			
 
 				dwLastDeserializedOffset++;
+				ppysResult.dwStructCount++;
 			}
 		}
 
@@ -327,4 +328,8 @@ ParsedPyStructs DeserializeStableReleases(LPSTR pszBody, DWORD dwSize) {
 		dwEnd = 0;
 
 	}
+
+	ppysResult.pyStart = pyContainer;
+
+	return ppysResult;
 }
