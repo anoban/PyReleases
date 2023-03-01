@@ -255,6 +255,8 @@ LPSTR GetStableReleases(LPSTR pszHtmlBody, DWORD dwSize) {
 	return pszStable;
 }
 
+
+
 ParsedPyStructs DeserializeStableReleases(LPSTR pszBody, DWORD dwSize) {
 
 	// A struct to be returned by this function that holds a pointer to the first Python struct
@@ -279,7 +281,9 @@ ParsedPyStructs DeserializeStableReleases(LPSTR pszBody, DWORD dwSize) {
 
 	// Template <a href="https://www.python.org/downloads/release/python-31010/">Python 3.10.10 - Feb. 8, 2023</a>
 	for (DWORD i = 0; i < dwSize; ++i) {
+
 		if (pszBody[i] == '<' && pszBody[i + 1] == 'a') {
+
 			if (pszBody[i + 2] == ' ' && pszBody[i + 3] == 'h' && pszBody[i + 4] == 'r' && 
 				pszBody[i + 5] == 'e' && pszBody[i + 6] == 'f' && pszBody[i + 7] == '=' &&
 				pszBody[i + 8] == '?' && pszBody[i + 9] == 'h' && pszBody[i + 10] == 't' &&
@@ -294,6 +298,20 @@ ParsedPyStructs DeserializeStableReleases(LPSTR pszBody, DWORD dwSize) {
 				pszBody[i + 35] == 'n' && pszBody[i + 36] == 'l' && pszBody[i + 37] == 'o' &&
 				pszBody[i + 38] == 'a' && pszBody[i + 39] == 'd' && pszBody[i + 40] == 's' &&
 				pszBody[i + 41] == '/') {
+
+				for (DWORD j = 0; j < 50; ++j) {
+
+					if (pszBody[i + j + 42] == '>') {
+						dwStart = i + j + 42;
+					}
+
+					if (pszBody[i + j + 42] == '<') {
+						dwEnd = i + j + 41;
+						break;
+					}
+
+				}
+
 
 			}
 		}
