@@ -10,8 +10,7 @@
 #pragma comment(lib, "Winhttp")
 
 typedef struct {
-	char pszVersionReleaseDate[40];
-	char pszAmd64DownloadUrl[80];
+	char pszVersionAndReleaseDate[40];
 } Python;
 
 typedef struct {

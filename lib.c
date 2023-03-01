@@ -257,7 +257,45 @@ LPSTR GetStableReleases(LPSTR pszHtmlBody, DWORD dwSize) {
 
 ParsedPyStructs DeserializeStableReleases(LPSTR pszBody, DWORD dwSize) {
 
-	ParsedPyStructs ppysResult = { .dwStructCount = 0, .pyStart = NULL };
-	// Every release version & date string follows a <li>\n<a
-	Python* pyContainer = malloc(sizeof(Python) * 30U);
+	// A struct to be returned by this function that holds a pointer to the first Python struct
+	// and the number of structs in the allocated memory.
+	ParsedPyStructs ppysResult = { .pyStart = NULL, .dwStructCount = 0 };
+
+	// Allocate memory for 30 Python structs.
+	Python* pyContainer = (Python*) malloc(sizeof(Python) * 30U);
+
+	// If malloc failed,
+	if (!pyContainer) {
+		fprintf_s(stderr, "Error %ld. Memory allocation error in DeserializeStableReleases.\n",
+			GetLastError());
+		return ppysResult;
+	}
+
+	// A counter to remember last deserialized Python struct.
+	DWORD dwLastDeserializedOffset = 0;
+
+	// Start and end offsets of the version and release date string.
+	DWORD dwStart = 0, dwEnd = 0;
+
+	// Template <a href="https://www.python.org/downloads/release/python-31010/">Python 3.10.10 - Feb. 8, 2023</a>
+	for (DWORD i = 0; i < dwSize; ++i) {
+		if (pszBody[i] == '<' && pszBody[i + 1] == 'a') {
+			if (pszBody[i + 2] == ' ' && pszBody[i + 3] == 'h' && pszBody[i + 4] == 'r' && 
+				pszBody[i + 5] == 'e' && pszBody[i + 6] == 'f' && pszBody[i + 7] == '=' &&
+				pszBody[i + 8] == '?' && pszBody[i + 9] == 'h' && pszBody[i + 10] == 't' &&
+				pszBody[i + 11] == 't' && pszBody[i + 12] == 'p' && pszBody[i + 13] == 's' &&
+				pszBody[i + 14] == ':' && pszBody[i + 15] == '/' && pszBody[i + 16] == '/' &&
+				pszBody[i + 17] == 'w' && pszBody[i + 18] == 'w' && pszBody[i + 19] == 'w' &&
+				pszBody[i + 20] == '.' && pszBody[i + 21] == 'p' && pszBody[i + 22] == 'y' &&
+				pszBody[i + 23] == 't' && pszBody[i + 24] == 'h' && pszBody[i + 25] == 'o' &&
+				pszBody[i + 26] == 'n' && pszBody[i + 27] == '.' && pszBody[i + 28] == 'o' &&
+				pszBody[i + 29] == 'r' && pszBody[i + 30] == 'g' && pszBody[i + 31] == '/' &&
+				pszBody[i + 32] == 'd' && pszBody[i + 33] == 'o' && pszBody[i + 34] == 'w' &&
+				pszBody[i + 35] == 'n' && pszBody[i + 36] == 'l' && pszBody[i + 37] == 'o' &&
+				pszBody[i + 38] == 'a' && pszBody[i + 39] == 'd' && pszBody[i + 40] == 's' &&
+				pszBody[i + 41] == '/') {
+
+			}
+		}
+	}
 }
