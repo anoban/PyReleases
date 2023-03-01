@@ -10,10 +10,20 @@
 #pragma comment(lib, "Winhttp")
 
 typedef struct {
+	char pszVersionReleaseDate[40];
+	char pszAmd64DownloadUrl[80];
+} Python;
+
+typedef struct {
 	HINTERNET hSession;
 	HINTERNET hConnection;
 	HINTERNET hRequest;
 } SCRHANDLES;
+
+typedef struct {
+	Python* pyStart;
+	DWORD dwStructCount;
+} ParsedPyStructs;
 
 #define RESP_BUFF_SIZE 1048576U		// 1 MiBs
 

@@ -254,3 +254,10 @@ LPSTR GetStableReleases(LPSTR pszHtmlBody, DWORD dwSize) {
 
 	return pszStable;
 }
+
+ParsedPyStructs DeserializeStableReleases(LPSTR pszBody, DWORD dwSize) {
+
+	ParsedPyStructs ppysResult = { .dwStructCount = 0, .pyStart = NULL };
+	// Every release version & date string follows a <li>\n<a
+	Python* pyContainer = malloc(sizeof(Python) * 30U);
+}
