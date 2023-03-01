@@ -312,8 +312,19 @@ ParsedPyStructs DeserializeStableReleases(LPSTR pszBody, DWORD dwSize) {
 
 				}
 
+				memcpy_s(
+					(pyContainer[dwLastDeserializedOffset]).pszVersionAndReleaseDate,
+					40U,
+					(pszBody + dwStart),
+					(dwEnd - dwStart));
+			
 
+				dwLastDeserializedOffset++;
 			}
 		}
+
+		dwStart = 0;
+		dwEnd = 0;
+
 	}
 }
