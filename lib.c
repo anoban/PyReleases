@@ -259,9 +259,11 @@ LPSTR GetStableReleases(LPSTR pszHtmlBody, DWORD dwSize) {
 
 ParsedPyStructs DeserializeStableReleases(LPSTR pszBody, DWORD dwSize) {
 
+	// Caller is obliged to free the memory in return.pyStart.
+
 	// A struct to be returned by this function that holds a pointer to the first Python struct
 	// and the number of structs in the allocated memory.
-	ParsedPyStructs ppysResult = { .pyStart = NULL, .dwStructCount = 0 };
+	ParsedPyStructs ppsResult = { .pyStart = NULL, .dwStructCount = 0 };
 
 	// Allocate memory for 30 Python structs.
 	Python* pyContainer = (Python*) malloc(sizeof(Python) * 30U);
@@ -270,7 +272,7 @@ ParsedPyStructs DeserializeStableReleases(LPSTR pszBody, DWORD dwSize) {
 	if (!pyContainer) {
 		fprintf_s(stderr, "Error %ld. Memory allocation error in DeserializeStableReleases.\n",
 			GetLastError());
-		return ppysResult;
+		return ppsResult;
 	}
 
 	// A counter to remember last deserialized Python struct.
@@ -320,7 +322,7 @@ ParsedPyStructs DeserializeStableReleases(LPSTR pszBody, DWORD dwSize) {
 			
 
 				dwLastDeserializedOffset++;
-				ppysResult.dwStructCount++;
+				ppsResult.dwStructCount++;
 			}
 		}
 
@@ -329,7 +331,14 @@ ParsedPyStructs DeserializeStableReleases(LPSTR pszBody, DWORD dwSize) {
 
 	}
 
-	ppysResult.pyStart = pyContainer;
+	ppsResult.pyStart = pyContainer;
 
-	return ppysResult;
+	return ppsResult;
+}
+
+
+
+VOID PrintPython(Python* pyStruct) {
+	printf_s("%s\n", pyStruct->pszVersionAndReleaseDate);
+	return;
 }

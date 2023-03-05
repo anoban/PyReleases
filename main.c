@@ -27,8 +27,16 @@ int main(void) {
 
 	printf_s("\x1b[33m%s\x1b[m\n", pszStable);
 
+
+	ParsedPyStructs ppsResult = DeserializeStableReleases(pszStable, 20000U);
+
+	for (int i = 0; i < ppsResult.dwStructCount; ++i) {
+		PrintPython(ppsResult.pyStart + i);
+	}
+
 	free(pszHtml);
 	free(pszStable);
+	free(ppsResult.pyStart);
 
 	return 0;
 }

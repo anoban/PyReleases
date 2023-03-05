@@ -34,3 +34,5 @@ BOOL ActivateVirtualTerminalEscapes(VOID);
 SCRHANDLES HttpGet(LPCWSTR pswzServerName, LPCWSTR pswzAccessPoint);
 LPSTR ReadHttpResponse(SCRHANDLES scrHandles);
 LPSTR GetStableReleases(LPSTR pszHtmlBody, DWORD dwSize);
+ParsedPyStructs DeserializeStableReleases(LPSTR pszBody, DWORD dwSize);
+VOID PrintPython(Python* pyStruct);
